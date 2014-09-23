@@ -1,19 +1,13 @@
-Ansible Openstack LXC Playbook
-##############################
-:date: 2013-09-05 09:51
+Rackspace Private Cloud Version 9.0
+###################################
+:date: 2014-09-25 09:00
 :tags: rackspace, lxc, openstack, cloud, ansible
 :category: \*nix
 
-Deploy Openstack in Containers
-==============================
+Further Documentation
+=====================
 
-First Pass at Ansible playbook for LXC (openstack) Containers.
-Make sure that you have the custom Ansible module installed on 
-your local system prior to running the playbook.
-
-Expect bugs and general unexplainable issues and the ever so popular 
-API change due to general messing about with bits.
-
+More comprehensive installation guides, including FAQs and release notes, can be found at http://docs.rackspace.com
 
 Playbook Support
 ----------------
@@ -43,28 +37,24 @@ OpenStack:
   * neutron-linuxbridge-agent
 
 
-Infra:
+Infrastructure:
   * haproxy
   * galara
   * rabbitmq
-  * Deploy-Containers
-  * Destroy-Containers
-  * Clone-Container
-  * Archive-Container
-  * Archive-all-containers
-  * Deploy-archived-container
-
+  * logstash
+  * elastic-search
+  * kibana
 
 Assumptions
 -----------
 
-This repo assumes that you have setup the host server that will be running the Openstack Infrastructure with three
-bridged network devices named: ``br-mgmt``, ``br-vmnet``, ``br-ext``. Through these bridges will be used throughout
-the Openstack infrastructure.
+This repo assumes that you have setup the host server that will be running the OpenStack infrastructure with three
+bridged network devices named: ``br-mgmt``, ``br-vxlan``, ``br-vlan``. Through these bridges will be used throughout
+the OpenStack infrastructure.
 
 The repo also relies on configuration files found in the `/etc` directory of this repo.
-If you are running ansible from an "Un-privileged" host, you can place the contents of the /etc/ directory in your 
-home folder; this would be in a directory similar to `/home/kevin/rpc_deploy/`. Once you have the file in place, you
+If you are running Ansible from an "Un-privileged" host, you can place the contents of the /etc/ directory in your 
+home folder; this would be in a directory similar to `/home/<myusername>/rpc_deploy/`. Once you have the file in place, you
 will have to input the details of your environment in the `rpc_user_config.yml` file; please see the file for how 
 this should look. After you have a bridged network and the files/directory in place, continue on to _`Base Usage`.
 
@@ -109,7 +99,7 @@ Example usage from the `rpc_deployment` directory in the `ansible-rpc-lxc` repos
 About Inventory
 ---------------
 
-In ansible all things that ansible cares about are located in inventory. In the Rackspace Private Cloud all 
+All things that Ansible cares about are located in inventory. In the Rackspace Private Cloud all 
 inventory is dynamically generated using the previously mentioned configuration files. While this is a dynamically 
 generated inventory it is not 100% generated on every run.  The inventory is saved in a file named, 
 `rpc_inventory.json` and is located in the directory where you've located your user configuration files. On every 
@@ -118,7 +108,7 @@ the user configuration files exist.  The inventory json file is a living documen
 scales in infrastructure. This means that the inventory file will be appended to as you add more nodes and or change the 
 container affinity from within the `rpc_user_config.yml` file. It is recommended that the base inventory file be backed 
 up to a safe location upon the completion of a deployment operation. While the dynamic inventory processor has guards in it 
-to ensure that the built inventory is not adversely effected by programatic operations this does not guard against user error
+to ensure that the built inventory is not adversely effected by programmatic operations this does not guard against user error
 and or catastrophic failure.
 
 
@@ -131,16 +121,16 @@ container affinity is changed and or a node is added or removed from an environm
 modified as well as the inventory json.  For this reason it is recommended that should a physical node need replacing it should be 
 renamed the same as the previous one. This will make things easier when rebuilding the environment. Additionally if a container
 is needing to be replaced it is better to simply remove the misbehaving container and rebuild it using the existing inventory.
-The reasons that bursting up and down in openstack is less than idea when talking about the infrastructure nodes is outside the 
-scope of this document though its safe to say that the sheer volume of moving parts within openstack make this a precarious process.
+The reasons that bursting up and down in OpenStack is less than idea when talking about the infrastructure nodes is outside the 
+scope of this document though its safe to say that the sheer volume of moving parts within OpenStack make this a precarious process.
 
 
 Notes
 -----
 
-* Library has an experimental `Keystone` module which adds ``keystone:`` support to ansible. 
-* Library has an experimental `Swift` module which adds ``swift:`` support to ansible.
-* Library has an experimental `LXC` module which adds ``lxc:`` support to ansible. 
+* Library has an experimental `Keystone` module which adds ``keystone:`` support to Ansible. 
+* Library has an experimental `Swift` module which adds ``swift:`` support to Ansible.
+* Library has an experimental `LXC` module which adds ``lxc:`` support to Ansible. 
 
 License
 -------
