@@ -21,9 +21,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 Official Documentation
-=====================
+----------------------
 
-More comprehensive installation guides, including FAQs and release notes, can be found at http://docs.rackspace.com
+Comprehensive installation guides, including FAQs and release notes, can be found at http://docs.rackspace.com
 
 Playbook Support
 ----------------
